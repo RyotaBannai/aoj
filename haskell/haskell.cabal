@@ -23,7 +23,10 @@ extra-source-files: CHANGELOG.md
 
 library
   -- cabal-fmt: expand src
-  exposed-modules:  Algo
+  exposed-modules:
+    Algo
+    Common
+
   build-depends:    base ^>=4.14.2.0
   hs-source-dirs:   src
   default-language: Haskell2010
