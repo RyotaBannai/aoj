@@ -2,7 +2,7 @@
 
 module Algo where
 
-import Common (randomList, readInputContest, readInputsTerm, safeSwapElems, swapElems)
+import Common (randomList, readInputContest, readInputsTerm, safeSwapElems, sub', swapElems)
 import Control.Applicative
 import Data.List
 import Data.Maybe
@@ -25,16 +25,11 @@ solve2 = do
   xs <- fmap read <$> readInputsTerm -- or use `readInputsTerm` for debug
   print $ run xs Nothing Nothing
   where
-    prof :: Integer -> Integer -> Integer
-    prof f s
-      | s < 0 && f > 0 = f + s
-      | otherwise = (-) s f
-
     run :: [Integer] -> Maybe Integer -> Maybe Integer -> Integer
     run [] (Just x) _ = x
     run (v : rest) maxv Nothing = run rest maxv (Just v)
-    run (v : rest) Nothing (Just x) = run rest (Just $ prof x v) (Just (x `min` v))
-    run (v : rest) (Just v') (Just x) = run rest (Just $ prof x v `max` v') (Just (x `min` v))
+    run (v : rest) Nothing (Just x) = run rest (Just $ sub' x v) (Just (x `min` v))
+    run (v : rest) (Just v') (Just x) = run rest (Just $ sub' x v `max` v') (Just (x `min` v))
 
 -- * -- * ALDS1_2_A
 

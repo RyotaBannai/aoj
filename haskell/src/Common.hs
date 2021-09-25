@@ -52,3 +52,8 @@ randomList n = do
   r <- randomRIO (1, 6)
   rs <- randomList (n -1)
   return (r : rs)
+
+sub' :: Integer -> Integer -> Integer
+sub' f s
+  | s < 0 && f > 0 = f + s
+  | otherwise = (-) s f
