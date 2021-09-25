@@ -4,12 +4,12 @@ module Algo where
 
 import Common (randomList, readInputContest, readInputsTerm, safeSwapElems, swapElems)
 import Control.Applicative
-import Data.Bifunctor
 import Data.List
 import Data.Maybe
 import System.IO
 
--- ITP1_1_C: Rectangle
+-- * ITP1_1_C: Rectangle
+
 solve :: IO ()
 solve = do
   [a, b] <- map read . words <$> getLine
@@ -17,7 +17,8 @@ solve = do
       rect = a + 2 + b + 2
   print $ show area ++ " " ++ show rect
 
--- ALDS1_1_D
+-- * ALDS1_1_D
+
 solve2 :: IO ()
 solve2 = do
   _ <- getLine
@@ -34,6 +35,8 @@ solve2 = do
     run (v : rest) maxv Nothing = run rest maxv (Just v)
     run (v : rest) Nothing (Just x) = run rest (Just $ prof x v) (Just (x `min` v))
     run (v : rest) (Just v') (Just x) = run rest (Just $ prof x v `max` v') (Just (x `min` v))
+
+-- * -- * ALDS1_2_A
 
 bubbleSort :: Ord a => [a] -> (Int, [a])
 bubbleSort = outer 0 0
@@ -108,6 +111,8 @@ format ((ns, _), xs) = unlines [unwords $map show xs, show $ sum ns]
 solve' :: ([Int], [Int]) -> ([Int], [Int])
 solve' (n, []) = (n, [])
 solve' (n, xs) = let s = minimum xs in solve' (fromJust (elemIndex s xs) : n, delete s xs)
+
+-- * ALDS1_2_B
 
 ssort :: (Num a1, Ord a2) => (a1, [a2]) -> (a1, [a2])
 ssort (c, []) = (c, [])
