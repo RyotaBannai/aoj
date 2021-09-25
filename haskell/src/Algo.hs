@@ -2,7 +2,7 @@
 
 module Algo where
 
-import Common (randomList, readInputContest, readInputsTerm, safeSwapElems)
+import Common (randomList, readInputContest, readInputsTerm, safeSwapElems, swapElems)
 import Control.Applicative
 import Data.Bifunctor
 import Data.List
@@ -108,3 +108,25 @@ format ((ns, _), xs) = unlines [unwords $map show xs, show $ sum ns]
 solve' :: ([Int], [Int]) -> ([Int], [Int])
 solve' (n, []) = (n, [])
 solve' (n, xs) = let s = minimum xs in solve' (fromJust (elemIndex s xs) : n, delete s xs)
+
+ssort :: (Num a1, Ord a2) => (a1, [a2]) -> (a1, [a2])
+ssort (c, []) = (c, [])
+ssort (c, xs) = (nnc, y : zs)
+  where
+    (nc, y : ys) = ssort' (c, xs)
+    (nnc, zs) = ssort (nc, ys)
+
+ssort' :: (Num a1, Ord a2) => (a1, [a2]) -> (a1, [a2])
+ssort' (c, [x]) = (c, [x])
+ssort' (c, xs) =
+  let i = fromJust (elemIndex (minimum xs) xs)
+   in if i == 0 then (c, xs) else (c + 1, swapElems 0 i xs)
+
+run :: [Char] -> [String]
+run s =
+  let xs = map (read :: String -> Int) . words $ s
+      (c, xs') = ssort (0, xs)
+   in [unwords . map show $ xs', show c]
+
+solve4 :: IO ()
+solve4 = getLine >> getLine >>= mapM_ putStrLn . run

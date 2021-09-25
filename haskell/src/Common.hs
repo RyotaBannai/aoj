@@ -34,6 +34,18 @@ safeSwapElems f' s' xs
         right = drop (s + 1) xs
      in Just $ left ++ els : middle ++ elf : right
 
+swapElems :: Int -> Int -> [a] -> [a]
+swapElems f' s' xs
+  | f' == s' = xs
+  | otherwise =
+    let (f, s) = if f' < s' then (f', s') else (s', f')
+        elf = xs !! f
+        els = xs !! s
+        left = take f xs
+        middle = take (s - f - 1) (drop (f + 1) xs)
+        right = drop (s + 1) xs
+     in left ++ els : middle ++ elf : right
+
 randomList :: Int -> IO [Int]
 randomList 0 = return []
 randomList n = do
