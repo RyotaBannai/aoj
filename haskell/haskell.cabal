@@ -26,6 +26,7 @@ library
   exposed-modules:
     Algo
     Common
+    DoublyLinkedList
     Queue
     SeqQueue
     StableSort
