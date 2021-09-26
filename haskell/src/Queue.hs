@@ -14,12 +14,15 @@ type Time = Integer
 
 type Quantum = Integer
 
-run :: (Process, Completed) -> Time -> Quantum -> Completed
-run ([], c) _ _ = c
-run ((name, rem) : ps, c) t q =
-  if rem <= q
-    then let done = rem + t in run (ps, (name, done) : c) done q
-    else run (reverse ((name, (-) rem q) : reverse ps), c) (t + q) q
+type State = (Process, Completed, Time)
+
+run :: State -> Quantum -> Completed
+run s q = go s
+  where
+    go ([], c, _) = c
+    go ((name, rem) : ps, c, t)
+      | rem <= q = let done = rem + t in go (ps, (name, done) : c, done)
+      | otherwise = go (ps ++ [(name, (-) rem q)], c, t + q)
 
 toInt :: String -> Integer
 toInt = read :: String -> Integer
@@ -34,4 +37,4 @@ main :: IO ()
 main = do
   [ps, q] <- map toInt . words <$> getLine
   xs <- readInputsTerm
-  mapM_ putStrLn $ format $ run (map (toTuple . words) xs, []) 0 q
+  mapM_ putStrLn $ format $ run (map (toTuple . words) xs, [], 0) q
