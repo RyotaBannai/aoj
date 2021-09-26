@@ -25,6 +25,7 @@ library
   -- cabal-fmt: expand src
   exposed-modules:
     Algo
+    AOTCSD
     Common
     DoublyLinkedList
     Queue
@@ -34,10 +35,10 @@ library
 
   build-depends:
     , base        ^>=4.14.2.0
+    , bytestring  ^>=0.10.12.0
     , containers  ^>=0.6.4.1
     , mtl         ^>=2.2.2
     , random      ^>=1.2.0
-    , bytestring  ^>=0.10.12.0
 
   hs-source-dirs:   src
   default-language: Haskell2010
