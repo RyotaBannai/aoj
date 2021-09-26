@@ -1,20 +1,24 @@
+{-# LANGUAGE MultiWayIf #-}
 {-# LANGUAGE ViewPatterns #-}
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 
 module DoublyLinkedList where
 
-import Common (readInputsTerm)
+import Common (cReadInputsTerm, readInputsTerm)
+import qualified Data.ByteString as BS
+import qualified Data.ByteString.Char8 as C
 import Data.Foldable (toList)
 import qualified Data.Sequence as S
 
 -- * ALDS1_3_C
 
--- TODO: use bytestring to boost up speed
+type Command a = (Int, a)
 
-type Command a = (String, a)
-
-opts :: [String]
-opts = ["insert", "delete", "deleteFirst", "deleteLast"]
+cInsert, cDelete, cDeleteFirst, cDeleteLast :: C.ByteString
+cInsert = C.pack "insert"
+cDelete = C.pack "delete"
+cDeleteFirst = C.pack "deleteFirst"
+cDeleteLast = C.pack "deleteLast"
 
 insert :: S.Seq a -> a -> S.Seq a
 insert (S.viewl -> S.EmptyL) v = S.empty S.|> v
@@ -40,23 +44,32 @@ deleteLast n = let (ss S.:> _) = S.viewr n in ss
 
 run :: (Eq a) => S.Seq (Command a) -> S.Seq a -> S.Seq a
 run (S.viewl -> S.EmptyL) s = s
-run (S.viewl -> c@(name, v) S.:< cs) s = let s' = if name `elem` opts then eval c s else s in run cs s'
+run (S.viewl -> c@(name, v) S.:< cs) s = run cs $ eval c s
 
 eval :: (Eq a) => Command a -> S.Seq a -> S.Seq a
-eval (name, v) s = case name of
-  "insert" -> insert s v
-  "delete" -> delete s v
-  "deleteFirst" -> deleteFirst s
-  "deleteLast" -> deleteLast s
+eval (n, v) s =
+  if
+      | n == 1 -> insert s v
+      | n == 2 -> delete s v
+      | n == 3 -> deleteFirst s
+      | n == 4 -> deleteLast s
 
-toInt :: String -> Integer
-toInt = read :: String -> Integer
+nameToInt :: C.ByteString -> Int
+nameToInt n =
+  if
+      | n == cInsert -> 1
+      | n == cDelete -> 2
+      | n == cDeleteFirst -> 3
+      | n == cDeleteLast -> 4
 
-toTuple :: [String] -> (String, Integer)
-toTuple xs = if length xs == 1 then (head xs, 0) else (head xs, toInt . last $ xs)
+toInt :: C.ByteString -> Int
+toInt = (read :: String -> Int) . C.unpack
+
+toTuple :: [C.ByteString] -> (Int, Int)
+toTuple xs = let name = nameToInt . head $ xs in if length xs == 1 then (name, 0) else (name, toInt . last $ xs)
 
 main :: IO ()
 main = do
   _ <- getLine
-  xs <- readInputsTerm
-  putStrLn $ unwords . map show . toList $ uncurry run (S.fromList . map (toTuple . words) $ xs, S.empty)
+  xs <- cReadInputsTerm
+  putStrLn . unwords . map show . toList . uncurry run $ (S.fromList . map (toTuple . C.words) $ xs, S.empty)

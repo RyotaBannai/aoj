@@ -1,5 +1,6 @@
 module Common where
 
+import qualified Data.ByteString.Char8 as C
 import System.Random
 
 {-
@@ -17,8 +18,14 @@ takeWhileM _ _ = return []
 readInputContest :: IO [String]
 readInputContest = lines <$> getContents
 
+cReadInputContest :: IO [C.ByteString]
+cReadInputContest = C.lines <$> C.getContents
+
 readInputsTerm :: IO [String]
 readInputsTerm = takeWhileM (not . null) (repeat getLine)
+
+cReadInputsTerm :: IO [C.ByteString]
+cReadInputsTerm = takeWhileM (not . C.null) (repeat C.getLine)
 
 -- λ safeSwapElems 1 9 [0..10] # Just [0,9,2,3,4,5,6,7,8,1,10]
 safeSwapElems :: Int -> Int -> [a] -> Maybe [a]
