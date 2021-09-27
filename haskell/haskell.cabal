@@ -26,6 +26,7 @@ library
   exposed-modules:
     Algo
     AOTCSD
+    BSearch
     Common
     DoublyLinkedList
     LSearch
@@ -40,6 +41,7 @@ library
     , containers  ^>=0.6.4.1
     , mtl         ^>=2.2.2
     , random      ^>=1.2.0
+    , vector ^>=0.12.3.0
 
   hs-source-dirs:   src
   default-language: Haskell2010
