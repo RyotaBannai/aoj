@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+
 module BSearch where
 
 import Data.Vector (Vector, (!))
@@ -27,4 +29,4 @@ readInts :: IO (Vector Int)
 readInts = V.fromList . map (read :: String -> Int) . words <$> getLine
 
 main :: IO ()
-main = (\n s _ t -> V.map (search s 0 n) t) <$> readInt <*> readInts <*> getLine <*> readInts >>= print . V.sum
+main = (\n s t -> V.map (search s 0 n) t) <$> readInt <*> readInts <*> (getLine >> readInts) >>= print . V.sum
