@@ -28,6 +28,7 @@ library
     AOTCSD
     Common
     DoublyLinkedList
+    LSearch
     Queue
     SeqQueue
     StableSort
