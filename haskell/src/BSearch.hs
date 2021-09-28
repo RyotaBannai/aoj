@@ -23,10 +23,10 @@ search s l r t
     m = (l + r) `div` 2
 
 readInt :: IO Int
-readInt = (read :: String -> Int) <$> getLine
+readInt = read <$> getLine
 
 readInts :: IO (Vector Int)
-readInts = V.fromList . map (read :: String -> Int) . words <$> getLine
+readInts = V.fromList . map read . words <$> getLine
 
 main :: IO ()
 main = (\n s t -> V.map (search s 0 n) t) <$> readInt <*> readInts <*> (getLine >> readInts) >>= print . V.sum
