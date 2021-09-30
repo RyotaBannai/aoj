@@ -16,7 +16,9 @@ import qualified Data.Vector as V
 
 type Dict = HashMap Integer C.ByteString
 
-type Command = Vector (C.ByteString, C.ByteString)
+type Command = (C.ByteString, C.ByteString)
+
+type Commands = Vector Command
 
 type Result = Vector C.ByteString
 
@@ -63,20 +65,23 @@ fnd d cs i = case M.lookup h' d of
     k = getKey cs
     h' = h k i
 
-run :: Command -> Result
-run = snd . V.foldl' f (M.empty, V.empty)
-  where
-    f st@(d, re) (name, str) =
-      if
-          | cInsert == name ->
-            let (b, d') = isrt d str
-             in if b then st else (d', re)
-          | cFind == name ->
-            let yn = conv . fst $ fnd d str 0
-             in (d, V.snoc re yn)
-    conv b = C.pack (if b then "yes" else "no")
+run :: Commands -> Result
+run = snd . V.foldl' mapCommand (M.empty, V.empty)
 
-toTuple :: [C.ByteString] -> Command
+mapCommand :: (Dict, Result) -> Command -> (Dict, Result)
+mapCommand st@(d, re) (name, str) =
+  if
+      | cInsert == name ->
+        let (b, d') = isrt d str
+         in if b then st else (d', re)
+      | cFind == name ->
+        let yn = conv . fst $ fnd d str 0
+         in (d, V.snoc re yn)
+
+conv :: Bool -> C.ByteString
+conv = C.pack . (\b -> if b then "yes" else "no")
+
+toTuple :: [C.ByteString] -> Commands
 toTuple = V.fromList . map ((\[f, s] -> (f, s)) . C.words)
 
 main :: IO ()
