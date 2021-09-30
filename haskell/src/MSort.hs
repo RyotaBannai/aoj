@@ -19,3 +19,15 @@ msort :: Ord a => [a] -> [a]
 msort [] = []
 msort [x] = [x]
 msort xs = let (left, right) = halve xs in merge (msort left) (msort right)
+
+readInts :: IO [Int]
+readInts = map read . words <$> getLine
+
+format :: ([Int], Int) -> [String]
+format (xs, cnt) = [unwords . map show $ xs, show cnt]
+
+main :: IO ()
+main = do
+  _ <- getLine
+  xs <- readInts
+  mapM_ putStrLn $ format . msort xs
