@@ -33,6 +33,7 @@ library
     ExhausiveSearch
     LSearch
     MSort
+    Partition
     Queue
     SeqQueue
     StableSort
