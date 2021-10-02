@@ -1,46 +1,51 @@
-#include <stdio.h>
-#define MAX 100000
+#include <cstdio>
+#include <iostream>
+#include <vector>
+using namespace std;
 
-int A[MAX], n;
+void swap_vec_elem(vector<int> &v, int i, int j)
+{
+  int t = v[i];
+  v[i] = v[j];
+  v[j] = t;
+}
 
-int partition(int p, int r)
+auto partition(vector<int> &vec, int p, int r) -> int
 {
   int x, i, j, t;
-  x = A[r];
+  x = vec[r];
   i = p - 1;
 
   for (j = p; j < r; j++) {
-    if (A[j] <= x) {
+    if (vec[j] <= x) {
       i++;
-      t = A[i];
-      A[i] = A[j];
-      A[j] = t;
+      swap_vec_elem(vec, i, j);
     }
   }
-  t = A[i + 1];
-  A[i + 1] = A[r];
-  A[r] = t;
+
+  swap_vec_elem(vec, i + 1, r); // base の数より一つ大きい場所と base を swap
   return i + 1;
 }
 
-// void swap(A, i, j) {}
-
-int main()
+auto main() -> int
 {
-  int i, q;
+  int n, i, q;
   scanf("%d", &n);
+  vector<int> vec(n);
 
   for (i = 0; i < n; i++)
-    scanf("%d", &A[i]);
+    scanf("%d", &vec[i]);
 
-  q = partition(0, n - 1);
+  q = partition(vec, 0, n - 1);
 
   for (i = 0; i < n; i++) {
     if (i)
       printf(" ");
+
+    // base の数より一つ大きい場所を [] でラップ
     if (i == q)
       printf("[");
-    printf("%d", A[i]);
+    printf("%d", vec[i]);
     if (i == q)
       printf("]");
   }
