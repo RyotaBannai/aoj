@@ -18,7 +18,7 @@ void print_vector_int(const vector<Card> v)
   cout << endl;
 }
 
-int m = 100000;
+const int m = 100000;
 vector<Card> vec_l(m / 2 + 2), vec_r(m / 2 + 2);
 
 void merge(vector<Card> &vec, const int l, const int mid, const int r)
