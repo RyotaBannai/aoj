@@ -12,6 +12,20 @@ void print_vector_int(const vector<int> v)
   cout << endl;
 }
 
+// T::iterator の前の typename は iterator が型であって、値でないことをコンパイラに知らせる.
+template <typename T> using Iterator = typename T::iterator;
+
+// find all pointer to value v in container C, such as `string` and return a vector of all pointers
+template <typename C, typename V> auto find_all(C &c, V v) -> vector<Iterator<C>>
+// (112)
+{
+  vector<Iterator<C>> res;
+  for (auto p = c.begin(); p != c.end(); p++)
+    if (*p == v)
+      res.push_back(p);
+  return res;
+}
+
 void swap(vector<int> &v, int i, int j)
 {
   int t = v[i];
@@ -26,11 +40,17 @@ void expr()
   print_vector_int(vec);
 }
 
-template <class T> auto in() -> T
+template <typename T> auto in() -> T
 {
   int inp;
   cin >> inp;
   return inp;
+}
+
+namespace Estd {
+  using namespace std;
+  template <typename C> void sort(C &c) { sort(c.begin(), c.end()); }
+  template <typename C, typename Pred> void sort(C &c, Pred p) { sort(c.begin(), c.end(), p); }
 }
 
 void use_std_sort()
@@ -48,7 +68,7 @@ out:
   cin >> n;
 
   lp(i, n) v.push_back(in<int>());
-  sort(v.begin(), v.end());
+  Estd::sort(v);
 
   for (auto x : v)
     cout << x << " ";
