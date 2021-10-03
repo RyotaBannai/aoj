@@ -8,6 +8,7 @@ typedef pair<int, int> pii;
 #define INF (1e9 + 1)
 //#define INF (1LL<<59)
 
+// https://www.cplusplus.com/reference/vector/vector/vector/
 ll solve_inversion(vector<int> &v)
 {
   if (v.size() == 1)
