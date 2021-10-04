@@ -13,4 +13,38 @@ using namespace std;
 struct Node {
   int parent, left, right;
 };
-vector<Node> t;
+
+const int MAX = 10005;
+const int NIL = -1;
+vector<Node> t(MAX), d(MAX);
+
+void format() {}
+auto rec(int u, int p) -> int {}
+
+auto main() -> int
+{
+  int i, j, d, v, c, l, r, n;
+  cin >> n;
+
+  lp(i, n) t[i].parent = t[i].left = t[i].right = NIL;
+  lp(i, n)
+  {
+    cin >> v >> d;
+    lp(j, d)
+    {
+      cin >> c;
+      if (j == 0)
+        t[v].left = c;
+      else
+        t[l].right = c;
+
+      l = c;
+      t[c].parent = v;
+    }
+  }
+  lp(i, n) if (t[i].p == NIL) r = i;
+
+  // rec(r, 0);
+  // lp(i, n) format(i);
+  return 0;
+}
