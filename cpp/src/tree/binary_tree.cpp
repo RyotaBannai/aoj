@@ -77,22 +77,22 @@ void format(int u)
 
 auto main() -> int
 {
-  int n, u, l, r, root = 0;
+  int n, i, u, l, r, root = 0;
   cin >> n;
 
-  lp(i, n) t[i].parent = NIL;
-  lp(i, n)
+  lp(u, n) node.parent = NIL;
+  lp(u, n)
   {
-    cin >> u >> l >> r;
+    cin >> i >> l >> r;
     node.left = l;
     node.right = r;
     if (l != NIL)
-      t[l].parent = u;
+      t[l].parent = i;
     if (r != NIL)
-      t[r].parent = u;
+      t[r].parent = i;
   }
 
-  lp(i, n) if (t[i].parent == NIL) root = i;
+  lp(u, n) if (node.parent == NIL) root = u;
 
   set_depth(root, 0);
   set_height(root);

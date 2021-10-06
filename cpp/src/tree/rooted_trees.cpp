@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #define lp(i, n) for (int i = 0; i < n; i++)
+#define node t[u]
 using namespace std;
 
 /*
@@ -33,18 +34,18 @@ void format(int u)
 {
   int i, c;
   cout << "node " << u << ": ";
-  cout << "parent = " << t[u].parent << ", ";
+  cout << "parent = " << node.parent << ", ";
   cout << "depth = " << depths[u] << ", ";
 
-  if (t[u].parent == NIL)
+  if (node.parent == NIL)
     cout << "root, ";
-  else if (t[u].left == NIL)
+  else if (node.left == NIL)
     cout << "leaf, ";
   else
     cout << "internal node, ";
 
   cout << "[";
-  for (i = 0, c = t[u].left; c != NIL; i++, c = t[c].right) {
+  for (i = 0, c = node.left; c != NIL; i++, c = t[c].right) {
     if (i)
       cout << ", ";
     cout << c;
@@ -57,19 +58,19 @@ void rec(int u, int p)
 // その子がまた left を持つ場合も再起的に走査
 {
   depths[u] = p;
-  if (t[u].right != NIL) // 他に兄弟外いる
-    rec(t[u].right, p);
-  if (t[u].left != NIL) // 子を持つ
-    rec(t[u].left, p + 1);
+  if (node.right != NIL) // 他に兄弟外いる
+    rec(node.right, p);
+  if (node.left != NIL) // 子を持つ
+    rec(node.left, p + 1);
 }
 
 auto main() -> int
 {
-  int i, j, num, v, c, l, root, n;
+  int u, j, num, v, c, l, root, n;
   cin >> n;
 
-  lp(i, n) t[i].parent = t[i].left = t[i].right = NIL;
-  lp(i, n)
+  lp(u, n) node.parent = node.left = node.right = NIL;
+  lp(u, n)
   {
     cin >> v >> num;
     lp(j, num)
@@ -84,9 +85,9 @@ auto main() -> int
       t[c].parent = v;
     }
   }
-  lp(i, n) if (t[i].parent == NIL) root = i;
+  lp(u, n) if (node.parent == NIL) root = u;
   rec(root, 0);
-  lp(i, n) format(i);
+  lp(u, n) format(u);
 
   // print_vector_int(depths);
 
