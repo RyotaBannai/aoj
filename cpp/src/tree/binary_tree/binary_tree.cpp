@@ -46,6 +46,13 @@ void insert(int v)
   }
 }
 
+auto find(Node *u, int v) -> Node *
+{
+  while (u != NIL && u->key != v)
+    u = v < u->key ? u->left : u->right;
+  return u;
+}
+
 void inorder(Node *u)
 {
   if (u == NIL)
@@ -73,14 +80,16 @@ auto main() -> int
   lp(i, n)
   {
     cin >> com;
-    if (com == "insert")
+    if (com[0] == 'i')
       insert(in<int>());
-    else if (com == "print") {
+    else if (com[0] == 'p') {
       inorder(root);
       printf("\n");
       preorder(root);
       printf("\n");
     }
+    else if (com[0] == 'f')
+      printf("%s\n", find(root, in<int>()) != NIL ? "yes" : "no");
   }
 
   return 0;
