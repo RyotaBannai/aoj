@@ -1,3 +1,6 @@
+/* |
+最長共通部分列 <http://www.cs.t-kougei.ac.jp/SSys/LCS.htm>
+*/
 #include <array>
 #include <iostream>
 #include <string>
