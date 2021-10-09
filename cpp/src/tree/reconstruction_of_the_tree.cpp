@@ -49,7 +49,7 @@ void solve()
 
 template <typename T> auto in() -> T
 {
-  int inp;
+  T inp;
   cin >> inp;
   return inp;
 }

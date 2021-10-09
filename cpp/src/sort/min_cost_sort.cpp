@@ -50,7 +50,7 @@ auto solve(vector<int> &a, int n, int s) -> int
 
 template <typename T> auto in() -> T
 {
-  int inp;
+  T inp;
   cin >> inp;
   return inp;
 }
