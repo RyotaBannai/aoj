@@ -32,7 +32,7 @@ void dijkstra()
   while (true) {
     minv = INF;
     int u = -1;
-    lp(i, n) if (minv > d[i] && color[i] != Color::Black) u = i, minv = d[i];
+    lp(i, n) if (minv > d[i] && color[i] != Color::Black) u = i, minv = d[i]; // time wasting.
     if (u == -1)
       break;
     color[u] = Color::Black;
