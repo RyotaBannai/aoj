@@ -38,13 +38,15 @@ void dis_visit(int r)
     int u = stk.top();
     int v = next(u);
     if (v != -1) {
-      if (color[v] == Color::White) {
+      if (color[v] == Color::White) { // Color::Grey なら pass
         color[v] = Color::Grey;
         d[v] = ++ts;
         stk.push(v);
       }
     }
     else {
+      // 末端にある edge などは、隣接 edge が全て Color::Grey になるケースが高く loop
+      // の全ての回で処理されずにこの else 文に入り、pop するだけの処理になることが想定される
       stk.pop();
       color[u] = Color::Black;
       f[u] = ++ts;
