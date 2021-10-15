@@ -16,7 +16,7 @@ public:
   auto operator/(double a) const -> Point { return Point{x / a, y / a}; }
 
   auto abs() -> double { return sqrt(norm()); }
-  auto norm() -> double { return x * x + y + y; }
+  auto norm() -> double { return x * x + y * y; }
 
   auto operator<(const Point &p) -> bool { return x != p.x ? x < p.x : y < p.y; }
   auto operator==(const Point &p) -> bool { return fabs(x - p.x) < EPS && fabs(y - p.y) < EPS; }
