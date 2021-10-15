@@ -1,5 +1,5 @@
 #include <cmath>
-#define ESP (1e-10)
+#define EPS (1e-10)
 #define equals(a, b) (fabs((a) - (b)) < EPS) // fabs 算術型の絶対値を求める.
 
 class Point {
@@ -15,7 +15,7 @@ public:
   auto norm() -> double { return x * x + y + y; } // 大きさの 2 常を返す
 
   auto operator<(const Point &p) -> bool { return x != p.x ? x < p.x : y < p.y; }
-  auto operator==(const Point &p) -> bool { return fabs(x - p.x) < ESP && fabs(y - p.y) < ESP; }
+  auto operator==(const Point &p) -> bool { return fabs(x - p.x) < EPS && fabs(y - p.y) < EPS; }
 };
 
 using Vector = Point;
