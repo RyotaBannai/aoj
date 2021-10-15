@@ -36,8 +36,8 @@ auto prim() -> int
   }
 
   int sum = 0;
-  //  node への parent が存在する -> 訪問済み
-  //　parent からその node へ訪問する（最小の path を通る）さいの cost の総和を求める.
+  // node への parent が存在する -> 訪問済み
+  // parent からその node へ訪問する（最小の path を通る）さいの cost の総和を求める.
   lp(i, n) if (p[i] != -1) sum += mat[i][p[i]];
   return sum;
 }
