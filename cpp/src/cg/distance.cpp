@@ -50,7 +50,36 @@ auto get_distance_sp(Segment s, Point p) -> double
     return abs(p - s.p2);
   return get_distance_lp(s, p);
 }
-auto intersect(Point p1, Point p2, Point p3, Point p4) -> bool { return true; }
+
+enum class Clock : int {
+  COUNTER_CLOCKWISE = 1,
+  CLOCKWISE = -1,
+  ONLINE_BACK = 2,
+  ONLINE_FRONT = -2,
+  ON_SEGMENT = 0
+};
+constexpr auto operator*(Clock l, Clock r) -> int
+{
+  return static_cast<int>(l) * static_cast<int>(r);
+}
+
+auto ccw(Point p0, Point p1, Point p2) -> Clock
+{
+  Vector v1 = p2 - p1;
+  Vector v2 = p0 - p1;
+  if (cross(v1, v2) > EPS)
+    return Clock::COUNTER_CLOCKWISE;
+  else if (cross(v1, v2) < -EPS)
+    return Clock::CLOCKWISE;
+  else if (dot(v1, v2) < -EPS)
+    return Clock::ONLINE_BACK;
+  else
+    return norm(v2) > norm(v1) ? Clock::ONLINE_FRONT : Clock::ON_SEGMENT;
+}
+auto intersect(Point p1, Point p2, Point p3, Point p4) -> bool
+{
+  return (ccw(p3, p1, p2) * ccw(p4, p1, p2) <= 0) && (ccw(p1, p3, p4) * ccw(p2, p3, p4) <= 0);
+}
 auto intersect(Segment s1, Segment s2) -> bool { return intersect(s1.p1, s1.p2, s2.p1, s2.p2); }
 auto get_distance(Segment s1, Segment s2) -> double
 /*
