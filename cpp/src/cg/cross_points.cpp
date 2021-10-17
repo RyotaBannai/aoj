@@ -31,7 +31,6 @@ struct Circle {
 };
 using Vector = Point;
 using Line = Segment;
-// using Polygon = vector<Point>;
 
 auto norm(Point p) -> double { return p.x * p.x + p.y * p.y; }
 auto abs(Point p) -> double { return sqrt(norm(p)); }
