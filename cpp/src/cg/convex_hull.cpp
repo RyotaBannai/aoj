@@ -66,7 +66,7 @@ auto andrew(Polygon s) -> Polygon
     u.push_back(s[i]);
   }
 
-  for (int i = n - 3; i >= 0; i--) {
+  for (int i = n - 3; i >= 0; i--) { // 後ろから 2 つはすでに追加ずみ
     for (int n = l.size(); n >= 2 && ccw(l[n - 2], l[n - 1], s[i]) == Clock::COUNTER_CLOCKWISE; n--)
       l.pop_back();
     l.push_back(s[i]);
@@ -74,7 +74,7 @@ auto andrew(Polygon s) -> Polygon
 
   reverse(l.begin(), l.end());
 
-  for (int i = u.size() - 2; i >= 1; i--)
+  for (int i = u.size() - 2; i >= 1; i--) // 先頭と最後は追加済みなのでここでは追加しない
     l.push_back(u[i]);
 
   return l;
