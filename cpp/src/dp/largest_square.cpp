@@ -13,8 +13,8 @@ auto largest_square() -> int
 {
   // タイルが一つの場合に、その一つが綺麗か汚れているかを確認する必要があるため都度チェック
   int squares[MAX][MAX], maxw = 0;
-  lp(i, H) maxw = (squares[i][0] = tiles[i][0] == 0 ? 1 : 0) ? 1 : maxw;
-  lp(j, W) maxw = (squares[0][j] = tiles[0][j] == 0 ? 1 : 0) ? 1 : maxw;
+  lp(i, H) maxw = (squares[i][0] = tiles[i][0] ? 0 : 1) ? 1 : maxw;
+  lp(j, W) maxw = (squares[0][j] = tiles[0][j] ? 0 : 1) ? 1 : maxw;
 
   lps(i, 1, H) lps(j, 1, W)
   {
