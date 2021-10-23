@@ -10,8 +10,7 @@ static const int N = 3;
 static const int N2 = 9;
 
 struct Puzzle {
-  int f[N2];
-  int space;
+  int f[N2], space;
   string path;
 
   auto operator<(const Puzzle &p) const -> bool
