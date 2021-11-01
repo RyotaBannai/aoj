@@ -1,3 +1,9 @@
+/*
+partition:
+末尾要素を基準にリストをそれより大きいか小さいかでに分割する
+
+quick sort に使用.
+*/
 #include <cstdio>
 #include <iostream>
 #include <vector>
