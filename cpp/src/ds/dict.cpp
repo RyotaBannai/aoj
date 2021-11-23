@@ -1,3 +1,6 @@
+/*
+Linear Probing で利用
+*/
 #include <iostream>
 using namespace std;
 
@@ -18,7 +21,8 @@ static int getChar(char ch)
 static long long getKey(char str[])
 {
   long long sum = 0, p = 1, i;
-  for (i = 0; i < strlen(str); i++) {
+  for (i = 0; i < strlen(str); i++)
+  {
     sum += p * (getChar(str[i]));
     p *= 5;
   }
