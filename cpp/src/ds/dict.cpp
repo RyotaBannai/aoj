@@ -16,6 +16,10 @@ constexpr int NIL = -1;
 string map[M];
 
 auto h1(ll key) -> int { return key % M; }
+/*
+h2(key) と map のサイズ（M）が互いに素でないといけない.
+M を素数にして、h2(key) を M より小さい値に設定することで回避することができる.
+*/
 auto h2(ll key) -> int { return 1 + (key % (M - 1)); }
 auto h(ll key, int i) -> int { return (h1(key) + i * h2(key)) % M; }
 
