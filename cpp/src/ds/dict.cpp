@@ -1,7 +1,7 @@
 /*
 Linear Probing で利用
 
-Open address 法 - ダブルハッシュ: ハッシュ値が衝突する際に二つ目のハッシュ関数を使う.
+Open address 法（開番地法）- ダブルハッシュ: ハッシュ値が衝突する際に二つ目のハッシュ関数を使う.
 i:= 衝突が発生して次のハッシュ値を計算した回数
 h(k,0), h(k,1), h(k,2),...
 
@@ -18,7 +18,12 @@ string map[M];
 auto h1(ll key) -> int { return key % M; }
 /*
 h2(key) と map のサイズ（M）が互いに素でないといけない.
-M を素数にして、h2(key) を M より小さい値に設定することで回避することができる.
+M を素数にして、h2(key) を M より小さい値(M-1)に設定することで回避することができる.
+
+a, a-1 が整数の時
+a=g*l a-1=g*m (l,m は素数で、g は gcd)
+整理して、g*l-1=g*m -> g(l-m)=1
+g>=1 より、g=1,l-m=1 gcd が 1 となるのは二つの整数が互いに素の場合であるから、a, a-1 は互いに素.
 */
 auto h2(ll key) -> int { return 1 + (key % (M - 1)); }
 auto h(ll key, int i) -> int { return (h1(key) + i * h2(key)) % M; }
