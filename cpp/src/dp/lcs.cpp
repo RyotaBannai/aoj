@@ -1,46 +1,68 @@
-/* |
-最長共通部分列 <http://www.cs.t-kougei.ac.jp/SSys/LCS.htm>
+/*
+最長共通部分列
+https://leetcode.com/problems/longest-common-subsequence/
+
+参考
+http://www.cs.t-kougei.ac.jp/SSys/LCS.htm
+
+TODO: 同じ文字が来たときの挙動確認
 */
+
 #include <array>
+#include <iomanip> // std::setw(int), std::setfill(char)
+#include <ios>     // std::left, std::right
 #include <iostream>
 #include <string>
-#define lps(i, j, n) for (int i = j; i < n; i++)
-#define lp(i, n) for (int i = 0; i < n; i++)
 using namespace std;
-
 const int MAX = 1000;
-auto solve(string s1, string s2) -> int
-{
-  array<array<int, MAX + 1>, MAX + 1> mat{}; // 全要素を 0 で初期化
-  int i, j;
-  int m = s1.size();
-  int n = s2.size();
-  int maxl = 0;
-
-  s1 = ' ' + s1; // 1 オリジンにするためダミーの空白を追加
-  s2 = ' ' + s2;
-
-  lps(i, 1, m + 1) lps(j, 1, n + 1)
-  // 共通部分を一つ見つけたときに斜め左上の数値をベースに +1 する.
-  // それ以外は同じ数値を引き継ぐ
-  {
-    mat[i][j] = s1[i] == s2[j] ? mat[i - 1][j - 1] + 1 : max(mat[i - 1][j], mat[i][j - 1]);
-    maxl = max(maxl, mat[i][j]);
-  }
-
-  return maxl;
-}
 
 auto main() -> int
 {
-  string s1, s2;
-  int i, n;
-  cin >> n;
-  lp(i, n)
-  {
-    cin >> s1 >> s2;
-    cout << solve(s1, s2) << endl;
+  string s1, s2; // abcde, ace
+  cin >> s1 >> s2;
+
+  array<array<int, MAX + 1>, MAX + 1> mat{}; // 全要素を 0 で初期化
+
+  string ans = "";
+  for (int i = 0; i <= s1.size(); ++i) {
+    for (int j = 0; j <= s2.size(); ++j)
+    // 共通部分を一つ見つけたときに斜め左上の数値をベースに +1 する.
+    // それ以外は同じ数値を引き継ぐ
+    {
+      if (s1[i] == s2[j]) {
+        mat[i + 1][j + 1] = mat[i][j] + 1;
+        ans += s1[i];
+      }
+      else {
+        mat[i + 1][j + 1] = max(mat[i + 1][j], mat[i][j + 1]);
+      }
+    }
   }
 
-  return 0;
+  // debug
+  // for (int i = 0; i <= s2.size(); ++i) {
+  //   for (int a = 0; a <= s1.size(); ++a) {
+  //     cout << std::right << std::setw(10) << mat[a][i];
+  //   }
+  //   cout << endl;
+  // }
+
+  // debug
+  // cout << std::right << std::setw(10) << "debug" << endl;
+  // cout << std::right << std::setw(10) << " ";
+
+  // for (auto x : s1) {
+  //   cout << std::right << std::setw(10) << x;
+  // }
+  // cout << endl;
+
+  // for (int i = 0; i <= s2.size(); ++i) {
+  //   cout << std::right << string(1, s2[i]);
+  //   for (int a = 0; a <= s1.size(); ++a) {
+  //     cout << std::right << std::setw(10) << mat[a][i];
+  //   }
+  //   cout << endl;
+  // }
+
+  cout << ans << endl;
 }

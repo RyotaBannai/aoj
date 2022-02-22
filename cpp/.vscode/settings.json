@@ -89,7 +89,32 @@
     "valarray": "cpp",
     "future": "cpp",
     "clocale": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "__bits": "cpp",
+    "barrier": "cpp",
+    "cfenv": "cpp",
+    "charconv": "cpp",
+    "cinttypes": "cpp",
+    "compare": "cpp",
+    "concepts": "cpp",
+    "condition_variable": "cpp",
+    "csetjmp": "cpp",
+    "csignal": "cpp",
+    "coroutine": "cpp",
+    "forward_list": "cpp",
+    "latch": "cpp",
+    "numbers": "cpp",
+    "random": "cpp",
+    "scoped_allocator": "cpp",
+    "semaphore": "cpp",
+    "shared_mutex": "cpp",
+    "span": "cpp",
+    "*.tcc": "cpp",
+    "cuchar": "cpp",
+    "source_location": "cpp",
+    "ranges": "cpp",
+    "stop_token": "cpp",
+    "syncstream": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "C_Cpp.autocompleteAddParentheses": true,
@@ -108,7 +133,7 @@
   "C_Cpp.formatting": "clangFormat",
   "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 2, TabWidth: 2, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 100, AccessModifierOffset: -2, NamespaceIndentation: All, Standard: Cpp11, FixNamespaceComments: false, AllowAllParametersOfDeclarationOnNextLine: true, AllowShortBlocksOnASingleLine: true, BreakBeforeBraces: Stroustrup}",
   // "C_Cpp.clang_format_path": "/usr/local/Cellar/clang-format/11.1.0/bin/clang-format"
-  "C_Cpp.clang_format_path": "/Users/ryotabannai/.vscode/extensions/ms-vscode.cpptools-1.7.1/LLVM/bin/clang-format",
+  "C_Cpp.clang_format_path": "/Users/ryotabannai/.vscode/extensions/ms-vscode.cpptools-1.9.0/LLVM/bin/clang-format",
   "clang-tidy.checks": [
     "modernize-*"
   ]
