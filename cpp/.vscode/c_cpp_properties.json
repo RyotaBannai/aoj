@@ -3,7 +3,7 @@
         {
             "name": "Mac",
             "includePath": [
-                "${default}"
+                "${default}",
             ],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",
